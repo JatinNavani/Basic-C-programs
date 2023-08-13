@@ -1,0 +1,106 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+struct Node
+{
+    int data;
+    struct Node * next;
+};
+void Traverse(struct Node *ptr)
+{
+     while (ptr!=NULL)
+     {
+        printf("Element is : %d \n",ptr->data);
+        ptr = ptr->next;
+     }
+     
+}
+
+struct Node * insetatFirst(struct Node *head,int data)
+{
+    struct Node * ptr;
+    ptr = (struct Node *) malloc(sizeof(struct Node));
+    ptr->next = head;
+    ptr->data = data;   
+    return ptr;
+}
+
+struct Node * insertatIndex(struct Node *head,int data,int index)
+{
+    struct Node * ptr;
+    ptr = (struct Node *) malloc(sizeof(struct Node));
+    struct Node * p = head;
+    int i = 0;
+    while(i!=index-1){
+        p = p->next;
+        i++;
+    }
+    ptr->data=data;
+    ptr->next= p->next;
+    p->next = ptr;
+    return head;
+}
+struct Node* insertatEnd(struct Node *head,int data)
+{
+    struct Node * ptr;
+    ptr = (struct Node *) malloc(sizeof(struct Node));
+    struct Node * p = head;
+
+     while (p->next!=NULL)
+     {
+      p = p->next;
+     }
+   p->next = ptr;
+   ptr->next = NULL;
+   ptr->data = data;
+   return head;
+}
+
+struct Node* instertatNode(struct Node *head,struct Node *prevNode,int data)
+{
+    struct Node * ptr;
+    ptr = (struct Node *) malloc(sizeof(struct Node));
+    ptr->data = data;
+    ptr->next = prevNode->next;
+    prevNode->next = ptr;
+    return head;
+}
+
+    
+
+int main()
+{
+   struct Node * head;
+   head = (struct Node *) malloc(sizeof(struct Node));
+   struct Node * second;
+   second = (struct Node *) malloc(sizeof(struct Node));
+   struct Node * third ;
+   third = (struct Node *) malloc(sizeof(struct Node));
+   
+
+   head -> data = 7;
+   head -> next = second;
+
+   second -> data = 50;
+   second -> next = third;
+
+   third -> data = 20;
+   third -> next = NULL;
+   Traverse(head);
+
+   /*printf("Inserting element in middle");
+   insertatIndex(head,75,2);
+   Traverse(head);*/
+
+   /*printf("Now inserting element at start \n");
+   head = insetatFirst(head,100);
+   Traverse(head);*/
+  /* printf("Now Inserting at end");
+   head = insertatEnd(head,69);
+   Traverse(head);*/
+
+   printf("Now inserting between a particular Node");
+   head = instertatNode(head,second,55);
+   Traverse(head);
+   return 0;
+}
